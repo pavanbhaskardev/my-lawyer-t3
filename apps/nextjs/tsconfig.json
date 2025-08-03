@@ -10,6 +10,12 @@
     "plugins": [{ "name": "next" }],
     "module": "esnext"
   },
-  "include": [".", ".next/types/**/*.ts"],
+  "include": [
+    ".",
+    ".next/types/**/*.ts",
+    "../../packages/db/collections",
+    "../../packages/db/payload-types.ts",
+    "../../packages/db/payload.config.ts"
+  ],
   "exclude": ["node_modules"]
 }

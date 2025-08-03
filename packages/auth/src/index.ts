@@ -1,23 +1,23 @@
 import type { BetterAuthOptions } from "better-auth";
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { oAuthProxy } from "better-auth/plugins";
-
-import { db } from "@acme/db/client";
+import { MongoClient } from "mongodb";
 
 export function initAuth(options: {
   baseUrl: string;
   productionUrl: string;
   secret: string | undefined;
-
-  discordClientId: string;
-  discordClientSecret: string;
+  googleClientId: string;
+  googleClientSecret: string;
+  databaseUrl: string;
 }) {
+  const client = new MongoClient(options.databaseUrl);
+  const db = client.db();
+
   const config = {
-    database: drizzleAdapter(db, {
-      provider: "pg",
-    }),
+    database: mongodbAdapter(db),
     baseURL: options.baseUrl,
     secret: options.secret,
     plugins: [
@@ -31,13 +31,13 @@ export function initAuth(options: {
       expo(),
     ],
     socialProviders: {
-      discord: {
-        clientId: options.discordClientId,
-        clientSecret: options.discordClientSecret,
-        redirectURI: `${options.productionUrl}/api/auth/callback/discord`,
+      google: {
+        clientId: options.googleClientId,
+        clientSecret: options.googleClientSecret,
+        redirectURI: `${options.productionUrl}/api/auth/callback/google`,
       },
     },
-    trustedOrigins: ["expo://"],
+    trustedOrigins: ["expo://", "exp://"],
   } satisfies BetterAuthOptions;
 
   return betterAuth(config);
