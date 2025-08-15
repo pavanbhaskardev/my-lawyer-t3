@@ -9,13 +9,13 @@ import { env } from "~/env";
 
 const baseUrl =
   env.VERCEL_ENV === "production"
-    ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`
+    ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL ?? ""}`
     : env.VERCEL_ENV === "preview"
-      ? `https://${env.VERCEL_URL}`
+      ? `https://${env.VERCEL_URL ?? ""}`
       : env.BACKEND_URL;
 
 export const auth = initAuth({
-  baseUrl,
+  baseUrl: baseUrl ? baseUrl : "",
   productionUrl:
     env.BACKEND_URL ||
     `https://${env.VERCEL_PROJECT_PRODUCTION_URL ?? "turbo.t3.gg"}`,

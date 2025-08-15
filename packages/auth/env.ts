@@ -12,7 +12,7 @@ export function authEnv() {
           : z.string().min(1).optional(),
       NODE_ENV: z.enum(["development", "production"]).optional(),
       DATABASE_URL: z.url(),
-      BACKEND_URL: z.url(),
+      BACKEND_URL: z.url().optional(),
     },
     experimental__runtimeEnv: {},
     skipValidation:
