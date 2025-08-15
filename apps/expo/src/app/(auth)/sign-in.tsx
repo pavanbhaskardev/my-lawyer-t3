@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Text } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Redirect } from "expo-router";
+import { images } from "constants/images";
 
 import { authClient } from "~/utils/auth";
 
@@ -12,12 +13,17 @@ const SignIn = () => {
   }
 
   return (
-    <>
-      <Text className="pb-2 text-center text-xl font-semibold text-zinc-900">
-        {session?.user.name ? `Hello, ${session.user.name}` : "Not logged in"}
-      </Text>
+    <View className="h-full w-full justify-center bg-background">
+      <View className="mb-4 items-center">
+        <Image source={images.logo} alt="my-lawyer-logo" className="size-36" />
 
-      <Button
+        <Text className="text-3xl font-bold">Welcome to My.Lawyer</Text>
+        <Text className="text-lg text-muted-foreground">
+          Find best lawyer's near you
+        </Text>
+      </View>
+
+      <TouchableOpacity
         onPress={() =>
           session
             ? authClient.signOut()
@@ -26,10 +32,15 @@ const SignIn = () => {
                 callbackURL: "/",
               })
         }
-        title={session ? "Sign Out" : "Sign In With Google"}
-        color={"#5B65E9"}
-      />
-    </>
+        className="mx-auto flex w-[80%] flex-row items-center justify-center gap-3 whitespace-nowrap rounded-md border border-primary bg-primary/10 px-4 py-3"
+      >
+        <Image source={images.google} className="size-6" />
+
+        <Text className="text-lg font-bold text-primary">
+          {session ? "Sign Out" : "Continue with Google"}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
