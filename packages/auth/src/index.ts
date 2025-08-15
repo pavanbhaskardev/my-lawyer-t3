@@ -2,8 +2,10 @@ import type { BetterAuthOptions } from "better-auth";
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { oAuthProxy } from "better-auth/plugins";
+import { admin, oAuthProxy } from "better-auth/plugins";
 import { MongoClient } from "mongodb";
+
+import { adminRole, lawyerRole, userRole } from "./permission";
 
 export function initAuth(options: {
   baseUrl: string;
@@ -29,6 +31,15 @@ export function initAuth(options: {
         productionURL: options.productionUrl,
       }),
       expo(),
+      admin({
+        roles: {
+          admin: adminRole,
+          lawyer: lawyerRole,
+          user: userRole,
+        },
+        defaultRole: "user",
+        adminRoles: ["admin"],
+      }),
     ],
     socialProviders: {
       google: {

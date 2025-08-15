@@ -147,6 +147,9 @@ importers:
       react-native:
         specifier: 0.79.2
         version: 0.79.2(@babel/core@7.27.4)(@types/react@19.1.6)(bufferutil@4.0.8)(react@19.0.0)
+      react-native-element-dropdown:
+        specifier: ^2.12.4
+        version: 2.12.4(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.1.6)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       react-native-gesture-handler:
         specifier: ~2.25.0
         version: 2.25.0(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.1.6)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
@@ -175,6 +178,9 @@ importers:
       '@acme/api':
         specifier: workspace:*
         version: link:../../packages/api
+      '@acme/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@acme/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
@@ -6441,6 +6447,13 @@ packages:
 
   react-native-edge-to-edge@1.6.0:
     resolution: {integrity: sha512-2WCNdE3Qd6Fwg9+4BpbATUxCLcouF6YRY7K+J36KJ4l3y+tWN6XCqAC4DuoGblAAbb2sLkhEDp4FOlbOIot2Og==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
+  react-native-element-dropdown@2.12.4:
+    resolution: {integrity: sha512-abZc5SVji9FIt7fjojRYrbuvp03CoeZJrgvezQoDoSOrpiTqkX69ix5m+j06W2AVncA0VWvbT+vCMam8SoVadw==}
+    engines: {node: '>= 16.0.0'}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -14264,6 +14277,12 @@ snapshots:
 
   react-native-edge-to-edge@1.6.0(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.1.6)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0):
     dependencies:
+      react: 19.0.0
+      react-native: 0.79.2(@babel/core@7.27.4)(@types/react@19.1.6)(bufferutil@4.0.8)(react@19.0.0)
+
+  react-native-element-dropdown@2.12.4(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.1.6)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0):
+    dependencies:
+      lodash: 4.17.21
       react: 19.0.0
       react-native: 0.79.2(@babel/core@7.27.4)(@types/react@19.1.6)(bufferutil@4.0.8)(react@19.0.0)
 
