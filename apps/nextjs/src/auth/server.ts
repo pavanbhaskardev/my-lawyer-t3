@@ -15,9 +15,9 @@ const baseUrl =
       : env.BACKEND_URL;
 
 export const auth = initAuth({
-  baseUrl: baseUrl ? baseUrl : "",
+  baseUrl: baseUrl ?? "",
   productionUrl:
-    env.BACKEND_URL ||
+    env.BACKEND_URL ??
     `https://${env.VERCEL_PROJECT_PRODUCTION_URL ?? "turbo.t3.gg"}`,
   secret: env.AUTH_SECRET,
   googleClientId: env.GOOGLE_CLIENT_ID,
