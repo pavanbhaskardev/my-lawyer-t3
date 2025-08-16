@@ -3,7 +3,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Redirect, Tabs, useRouter } from "expo-router";
 import { colors } from "constants/colors";
 import { images } from "constants/images";
-import { Home, UsersRound } from "lucide-react-native";
+import { Home, UserRoundCog, UsersRound } from "lucide-react-native";
 
 import { authClient } from "~/utils/auth";
 
@@ -50,6 +50,8 @@ export default function RootLayout() {
     return <Redirect href={"/sign-in"} />;
   }
 
+  const role = data.user.role ?? "";
+
   return (
     <Tabs
       screenOptions={{
@@ -79,6 +81,22 @@ export default function RootLayout() {
       />
 
       <Tabs.Screen
+        name="lawyers/apply/index"
+        options={{
+          href: null,
+          header: Header,
+        }}
+      />
+
+      <Tabs.Screen
+        name="lawyers/[id]/index"
+        options={{
+          href: null,
+          header: Header,
+        }}
+      />
+
+      <Tabs.Screen
         name="profile/index"
         options={{
           title: "Profile",
@@ -94,6 +112,18 @@ export default function RootLayout() {
             );
           },
           header: Header,
+        }}
+      />
+
+      <Tabs.Screen
+        name="admin/index"
+        options={{
+          title: "Admin",
+          tabBarIcon: ({ color }) => <UserRoundCog color={color} size={24} />,
+          header: Header,
+          href: role.split(",").some((r) => r === "admin")
+            ? "/(dashboard)/admin"
+            : null,
         }}
       />
     </Tabs>

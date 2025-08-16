@@ -8,5 +8,9 @@ export const Cases: CollectionConfig = {
       name: "name",
       required: true,
     },
+    {
+      type: "textarea",
+      name: "description",
+    },
   ],
 };

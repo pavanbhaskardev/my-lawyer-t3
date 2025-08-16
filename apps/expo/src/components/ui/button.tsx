@@ -19,8 +19,7 @@ export const buttonVariants = cva(
           "bg-primary text-primary-foreground shadow dark:bg-primary dark:text-primary-foreground",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm dark:bg-destructive dark:text-destructive-foreground",
-        outline:
-          "border border-input bg-background text-foreground shadow-sm dark:border-input dark:bg-background dark:text-foreground",
+        outline: "border border-primary bg-primary/5 text-primary",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm dark:bg-secondary dark:text-secondary-foreground",
         ghost: "text-foreground dark:text-foreground",

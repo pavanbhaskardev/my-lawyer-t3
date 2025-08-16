@@ -1,20 +1,18 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
+import { Link } from "expo-router";
+import { colors } from "constants/colors";
+import { LogOut, Scale } from "lucide-react-native";
 
 import { Button } from "~/components/ui/button";
-// import { Link } from "expo-router";
-// import { Button } from "@/components/ui/button";
-// import { Colors } from "@/constants/Colors";
-// import { LogOut, Scale } from "lucide-react-native";
-
 import { authClient } from "~/utils/auth";
 
 const Profile = () => {
   const { data: session } = authClient.useSession();
 
-  //   const handleLogout = async () => {
-  //     return await authClient.signOut();
-  //   };
+  const handleLogout = async () => {
+    return await authClient.signOut();
+  };
 
   const userDetails = {
     name: session ? session.user.name : "",
@@ -37,29 +35,24 @@ const Profile = () => {
         <Text className="text-muted-foreground">{`Joined on ${userDetails.joinedData ? userDetails.joinedData.toString() : ""}`}</Text>
       </View>
 
-      <Button>
-        <Text className="text-background">🎲 Toggle theme</Text>
-      </Button>
-
-      {/* <View className="gap-4">
-        <Link href="/apply-for-lawyer" asChild push>
-          <Button
-            title="Apply for Lawyer"
-            size="lg"
-            prefixLogo={<Scale color={Colors.light.background} size={20} />}
-          />
+      <View className="gap-4">
+        <Link href="/(dashboard)/lawyers/apply" asChild push>
+          <Button size="lg">
+            <Scale color={colors.light.background} size={16} />
+            <Text className="text-background">Apply for Lawyer</Text>
+          </Button>
         </Link>
 
         <Button
-          variant="outline"
-          title="Logout"
-          size="lg"
-          prefixLogo={<LogOut color={Colors.light.primary} size={20} />}
-          onPress={() => {
-            handleLogout();
+          variant="destructive"
+          onPress={async () => {
+            await handleLogout();
           }}
-        />
-      </View> */}
+        >
+          <LogOut color={colors.light.background} size={16} />
+          <Text className="text-background">Logout</Text>
+        </Button>
+      </View>
     </View>
   );
 };

@@ -1,13 +1,6 @@
 import React from "react";
 import { Image, ScrollView, Text, View } from "react-native";
-
-// import { Link } from "expo-router";
-
-// lawyers
-// experience
-// cases handling
-// location -> state, city
-// phone-number
+import { Link } from "expo-router";
 
 const lawyers = [
   {
@@ -38,25 +31,25 @@ const Lawyers = () => {
   return (
     <View className="flex-1 bg-background">
       <ScrollView className="flex-1 px-4 py-4">
-        {lawyers.map(({ name, city, imageURL, state }) => (
+        {lawyers.map(({ name, city, imageURL, state, slug }) => (
           <View
             className="mb-6 rounded-md border border-accent px-2 py-2.5"
             key={name}
           >
-            {/* <Link href={`/(dashboard)/lawyers/${slug}`}> */}
-            <View className="flex-1 flex-row gap-2">
-              <Image
-                src={imageURL}
-                alt={name}
-                className="size-16 rounded-full object-cover"
-              />
+            <Link href={`/(dashboard)/lawyers/${slug}`}>
+              <View className="flex-1 flex-row gap-2">
+                <Image
+                  src={imageURL}
+                  alt={name}
+                  className="size-16 rounded-full object-cover"
+                />
 
-              <View className="mt-2 flex">
-                <Text className="text-xl font-bold">{name}</Text>
-                <Text className="">{`${state} ${city}`}</Text>
+                <View className="mt-2 flex">
+                  <Text className="text-xl font-bold">{name}</Text>
+                  <Text className="">{`${state}, ${city}`}</Text>
+                </View>
               </View>
-            </View>
-            {/* </Link> */}
+            </Link>
           </View>
         ))}
       </ScrollView>

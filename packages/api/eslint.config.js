@@ -3,7 +3,7 @@ import baseConfig from "@acme/eslint-config/base";
 /** @type {import('typescript-eslint').Config} */
 export default [
   {
-    ignores: ["dist/**"],
+    ignores: ["dist/**", "payload-types.ts"],
   },
   ...baseConfig,
 ];

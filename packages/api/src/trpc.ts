@@ -11,7 +11,6 @@ import superjson from "superjson";
 import { z, ZodError } from "zod/v4";
 
 import type { Auth } from "@acme/auth";
-import { db } from "@acme/db/client";
 
 /**
  * 1. CONTEXT
@@ -37,7 +36,6 @@ export const createTRPCContext = async (opts: {
   return {
     authApi,
     session,
-    db,
   };
 };
 /**
@@ -119,6 +117,7 @@ export const protectedProcedure = t.procedure
     if (!ctx.session?.user) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
+
     return next({
       ctx: {
         // infers the `session` as non-nullable

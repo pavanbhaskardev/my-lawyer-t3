@@ -149,7 +149,7 @@ const ApplyForLawyer = () => {
         </View>
 
         <Button className="mt-4">
-          <Text className="text-foreground">Apply</Text>
+          <Text className="text-background">Apply</Text>
         </Button>
       </View>
     </ScrollView>

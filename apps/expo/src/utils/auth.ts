@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as SecureStore from "expo-secure-store";
 import { expoClient } from "@better-auth/expo/client";
 import { adminClient } from "better-auth/client/plugins";
