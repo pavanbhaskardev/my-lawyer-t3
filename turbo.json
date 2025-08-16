@@ -46,12 +46,10 @@
     }
   },
   "globalEnv": [
-    "POSTGRES_URL",
-    "AUTH_DISCORD_ID",
-    "AUTH_DISCORD_SECRET",
-    "AUTH_REDIRECT_PROXY_URL",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
     "AUTH_SECRET",
-    "PORT"
+    "DATABASE_URL"
   ],
   "globalPassThroughEnv": [
     "NODE_ENV",
