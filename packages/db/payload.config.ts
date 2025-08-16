@@ -11,8 +11,6 @@ import { Users } from "./src/payload/collections/Users";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-console.log(dirname);
-
 if (!process.env.DATABASE_URL) {
   throw new Error("Missing DATABASE_URL");
 }
@@ -32,6 +30,7 @@ const getPayloadConfig = buildConfig({
   secret: process.env.AUTH_SECRET,
   typescript: {
     outputFile: path.resolve(dirname, "../api/payload-types.ts"),
+    autoGenerate: false,
   },
   db: mongooseAdapter({
     url: process.env.DATABASE_URL,

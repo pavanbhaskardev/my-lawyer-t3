@@ -1,67 +1,114 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 import React, { useState } from "react";
 import { ScrollView, Text, TextInput, View } from "react-native";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { colors } from "constants/colors";
-// import { authClient } from "@/lib/auth-client";
-
-import { Plus } from "lucide-react-native";
+import { Plus, X } from "lucide-react-native";
 
 import { Button } from "~/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { TextArea } from "~/components/ui/textarea";
+import { trpc } from "~/utils/api";
 
-const TagsTab = () => {
-  const [tagName, setTagName] = useState("");
-  const [tagDescription, setTagDescription] = useState("");
+const CaseTab = () => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const queryClient = useQueryClient();
+  const { data: cases, isPending } = useQuery(trpc.cases.all.queryOptions());
 
-  //   const cookies = authClient.getCookie();
-  //   const hcClient = honoClient({ cookies });
-
-  //   const { mutate, isPending } = useMutation({
-  //     mutationFn: hcClient.api["create-specialization"].$post,
-  //     onSuccess: () => {
-  //       setTagName("");
-  //       setTagDescription("");
-  //     },
-  //   });
+  const { mutate: createCase, isPending: creatingCase } = useMutation(
+    trpc.cases.create.mutationOptions({
+      onSuccess: async () => {
+        setName("");
+        setDescription("");
+        await queryClient.invalidateQueries(trpc.cases.all.queryFilter());
+      },
+    }),
+  );
 
   return (
-    <ScrollView className="flex-1">
+    <>
       <View>
-        <Text className="text-2xl font-bold">Tags</Text>
+        <Text className="text-2xl font-bold">Cases</Text>
 
         <View className="mt-4 gap-4">
           <Input
-            placeholder="Enter some text"
+            placeholder="Enter case name"
             keyboardType="default"
             returnKeyType="done"
-            value={tagName}
-            onChangeText={(text) => setTagName(text)}
+            value={name}
+            onChangeText={(text) => setName(text)}
           />
 
           <TextArea
-            placeholder="Add tag description here..."
-            value={tagDescription}
-            onChangeText={(text) => setTagDescription(text)}
+            placeholder="Enter case description here..."
+            value={description}
+            onChangeText={(text) => setDescription(text)}
             numberOfLines={4}
           />
 
           <Button
-          // onPress={() => {
-          //   mutate({
-          //     json: {
-          //       name: tagName,
-          //       description: tagDescription,
-          //     },
-          //   });
-          // }}
+            disabled={creatingCase}
+            onPress={() => {
+              createCase({
+                name,
+                description,
+              });
+            }}
           >
             <Plus size={16} color={colors.light.background} />
-            <Text className="text-background">Create</Text>
+            <Text className="text-background">
+              {creatingCase ? "Creating..." : "Create"}
+            </Text>
           </Button>
         </View>
       </View>
-    </ScrollView>
+
+      <ScrollView className="mt-4 flex-1">
+        {isPending && <Text>Loading...</Text>}
+
+        {cases
+          ? cases.map((c, idx) => {
+              return (
+                <Card key={idx as number} className="mb-4">
+                  <CardHeader>
+                    <CardTitle>
+                      <Text className="text-xl font-bold text-foreground">
+                        {c.name}
+                      </Text>
+                    </CardTitle>
+
+                    <CardDescription>
+                      <Button
+                        size="icon"
+                        variant="destructive"
+                        className="size-8"
+                      >
+                        <X color={colors.light.background} size={16} />
+                      </Button>
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Text className="text-foreground">{c.description}</Text>
+                  </CardContent>
+                </Card>
+              );
+            })
+          : null}
+      </ScrollView>
+    </>
   );
 };
 
@@ -97,14 +144,17 @@ const LawyersTab = () => {
 
 const Admin = () => {
   return (
-    <Tabs defaultValue="tags" className="h-full w-full bg-background px-4 pt-4">
+    <Tabs
+      defaultValue="cases"
+      className="h-full w-full bg-background px-4 pt-4"
+    >
       <TabsList>
-        <TabsTrigger value="tags">Tags</TabsTrigger>
+        <TabsTrigger value="cases">Cases</TabsTrigger>
         <TabsTrigger value="lawyers">Lawyers</TabsTrigger>
       </TabsList>
 
-      <TabsContent value="tags">
-        <TagsTab />
+      <TabsContent value="cases">
+        <CaseTab />
       </TabsContent>
       <TabsContent value="lawyers">
         <LawyersTab />

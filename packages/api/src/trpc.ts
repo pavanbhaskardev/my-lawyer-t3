@@ -6,11 +6,13 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
+
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { z, ZodError } from "zod/v4";
 
 import type { Auth } from "@acme/auth";
+import { configPromise, getPayload } from "@acme/db";
 
 /**
  * 1. CONTEXT
@@ -33,9 +35,14 @@ export const createTRPCContext = async (opts: {
   const session = await authApi.getSession({
     headers: opts.headers,
   });
+  const payload = await getPayload({
+    config: configPromise,
+  });
+
   return {
     authApi,
     session,
+    payload,
   };
 };
 /**
@@ -116,6 +123,23 @@ export const protectedProcedure = t.procedure
   .use(({ ctx, next }) => {
     if (!ctx.session?.user) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    return next({
+      ctx: {
+        // infers the `session` as non-nullable
+        session: { ...ctx.session, user: ctx.session.user },
+      },
+    });
+  });
+
+export const adminProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(({ ctx, next }) => {
+    const role = ctx.session?.user.role ?? "";
+
+    if (!ctx.session?.user || !role.split(",").some((r) => r === "admin")) {
+      throw new TRPCError({ code: "FORBIDDEN" });
     }
 
     return next({
