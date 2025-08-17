@@ -12,7 +12,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   updates: {
     fallbackToCacheTimeout: 0,
   },
-  jsEngine: "jsc",
+  jsEngine: "hermes",
   newArchEnabled: true,
   assetBundlePatterns: ["**/*"],
   ios: {

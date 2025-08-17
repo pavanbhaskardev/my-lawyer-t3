@@ -1,22 +1,21 @@
 import React from "react";
 import { ScrollView, Text, TextInput, View } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
 import { colors } from "constants/colors";
 import { Scale } from "lucide-react-native";
 
 import { Button } from "~/components/ui/button";
 import { authClient } from "~/utils/auth";
 
-const list = [
-  { label: "Item 1", value: "1" },
-  { label: "Item 2", value: "2" },
-  { label: "Item 3", value: "3" },
-  { label: "Item 4", value: "4" },
-  { label: "Item 5", value: "5" },
-  { label: "Item 6", value: "6" },
-  { label: "Item 7", value: "7" },
-  { label: "Item 8", value: "8" },
-];
+// const list = [
+//   { label: "Item 1", value: "1" },
+//   { label: "Item 2", value: "2" },
+//   { label: "Item 3", value: "3" },
+//   { label: "Item 4", value: "4" },
+//   { label: "Item 5", value: "5" },
+//   { label: "Item 6", value: "6" },
+//   { label: "Item 7", value: "7" },
+//   { label: "Item 8", value: "8" },
+// ];
 
 const ApplyForLawyer = () => {
   const { data, isPending } = authClient.useSession();
@@ -79,7 +78,7 @@ const ApplyForLawyer = () => {
         <View>
           <Text className="mb-2">Specialization</Text>
 
-          <Dropdown
+          {/* <Dropdown
             data={list}
             search
             maxHeight={300}
@@ -97,13 +96,13 @@ const ApplyForLawyer = () => {
               //   borderColor: Colors.light.accent,
               borderRadius: 4,
             }}
-          />
+          /> */}
         </View>
 
         <View>
           <Text className="mb-2">State</Text>
 
-          <Dropdown
+          {/* <Dropdown
             data={list}
             search
             maxHeight={300}
@@ -121,13 +120,13 @@ const ApplyForLawyer = () => {
               //   borderColor: Colors.light.accent,
               borderRadius: 4,
             }}
-          />
+          /> */}
         </View>
 
         <View>
           <Text className="mb-2">City</Text>
 
-          <Dropdown
+          {/* <Dropdown
             data={list}
             search
             maxHeight={300}
@@ -145,7 +144,7 @@ const ApplyForLawyer = () => {
               //   borderColor: Colors.light.accent,
               borderRadius: 4,
             }}
-          />
+          /> */}
         </View>
 
         <Button className="mt-4">
