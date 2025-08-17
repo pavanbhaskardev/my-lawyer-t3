@@ -12,7 +12,8 @@
     "ios": "expo run:ios",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path .prettierignore",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build": "expo export --output-dir ./build --platform android"
   },
   "dependencies": {
     "@acme/auth": "workspace:*",
@@ -59,6 +60,7 @@
     "@acme/tailwind-config": "workspace:*",
     "@acme/tsconfig": "workspace:*",
     "@babel/core": "^7.27.4",
+    "@babel/plugin-transform-async-generator-functions": "^7.28.0",
     "@babel/preset-env": "^7.27.2",
     "@babel/runtime": "^7.27.4",
     "@types/babel__core": "^7.20.5",

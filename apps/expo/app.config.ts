@@ -2,39 +2,40 @@ import type { ConfigContext, ExpoConfig } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "expo",
-  slug: "expo",
-  scheme: "expo",
+  name: "My lawyer",
+  slug: "my-lawyer",
+  scheme: "my-lawyer",
   version: "0.1.0",
   orientation: "portrait",
-  icon: "./assets/icon-light.png",
+  icon: "./assets/icon-light.jpg",
   userInterfaceStyle: "automatic",
   updates: {
     fallbackToCacheTimeout: 0,
   },
+  jsEngine: "jsc",
   newArchEnabled: true,
   assetBundlePatterns: ["**/*"],
   ios: {
-    bundleIdentifier: "your.bundle.identifier",
+    bundleIdentifier: "com.sujith.mylawyer",
     supportsTablet: true,
     icon: {
-      light: "./assets/icon-light.png",
+      light: "./assets/icon-light.jpg",
       dark: "./assets/icon-dark.png",
     },
   },
   android: {
-    package: "your.bundle.identifier",
+    package: "com.sujith.mylawyer",
     adaptiveIcon: {
-      foregroundImage: "./assets/icon-light.png",
+      foregroundImage: "./assets/icon-light.jpg",
       backgroundColor: "#1F104A",
     },
     edgeToEdgeEnabled: true,
   },
-  // extra: {
-  //   eas: {
-  //     projectId: "your-eas-project-id",
-  //   },
-  // },
+  extra: {
+    eas: {
+      projectId: "483c225e-ec6f-46ec-99bf-bcdff3c6bfcc",
+    },
+  },
   experiments: {
     tsconfigPaths: true,
     typedRoutes: true,
@@ -47,7 +48,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       "expo-splash-screen",
       {
         backgroundColor: "#E4E4E7",
-        image: "./assets/icon-light.png",
+        image: "./assets/icon-light.jpg",
         dark: {
           backgroundColor: "#18181B",
           image: "./assets/icon-dark.png",

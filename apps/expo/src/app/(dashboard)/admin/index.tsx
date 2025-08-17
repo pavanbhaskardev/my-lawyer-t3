@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-
 import React, { useState } from "react";
 import { ScrollView, Text, TextInput, View } from "react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -82,7 +77,7 @@ const CaseTab = () => {
         {cases
           ? cases.map((c, idx) => {
               return (
-                <Card key={idx as number} className="mb-4">
+                <Card key={idx} className="mb-4">
                   <CardHeader>
                     <CardTitle>
                       <Text className="text-xl font-bold text-foreground">

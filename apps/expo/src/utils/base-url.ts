@@ -13,14 +13,20 @@ export const getBaseUrl = () => {
    * **NOTE**: This is only for development. In production, you'll want to set the
    * baseUrl to your production API URL.
    */
+
   const debuggerHost = Constants.expoConfig?.hostUri;
   const localhost = debuggerHost?.split(":")[0];
 
   if (!localhost) {
+    if (process.env.BACKEND_URL) {
+      return process.env.BACKEND_URL;
+    }
+
     // return "https://turbo.t3.gg";
     throw new Error(
       "Failed to get localhost. Please point to your production server.",
     );
   }
+
   return `http://${localhost}:3000`;
 };
